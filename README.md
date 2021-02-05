@@ -1,4 +1,4 @@
-# NgBasis
+# try-reactive-forms
 
 ![](https://github.com/kasaharu/try-reactive-forms/workflows/Node%20CI/badge.svg)
 
