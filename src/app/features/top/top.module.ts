@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TopComponent } from './pages/top/top.component';
+import { TopPageComponent } from './pages/top/top.component';
 
 @NgModule({
-  declarations: [TopComponent],
-  imports: [
-    CommonModule,
-  ],
+  declarations: [TopPageComponent],
+  imports: [CommonModule],
 })
-export class TopModule { }
+export class TopModule {}

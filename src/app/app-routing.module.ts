@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TopComponent } from './features/top/pages/top/top.component';
+import { TopPageComponent } from './features/top/pages/top/top.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/top', pathMatch: 'full' },
-  { path: 'top', component: TopComponent },
+  { path: 'top', component: TopPageComponent },
 ];
 
 @NgModule({
