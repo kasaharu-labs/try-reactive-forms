@@ -1,24 +1,30 @@
 <form [formGroup]="searchForm">
-  <label for="user-id">User: </label>
-  <select id="user-id" formControlName="userId" (change)="onChangeUser()">
-    <ng-container *ngFor="let user of users">
-      <option value="{{ user.id }}">{{ user.id }}: {{ user.name }}</option>
-    </ng-container>
-  </select>
+  <div class="search-item">
+    <label for="user-id">User: </label>
+    <select id="user-id" formControlName="userId" (change)="onChangeUser()">
+      <ng-container *ngFor="let user of users">
+        <option value="{{ user.id }}">{{ user.id }}: {{ user.name }}</option>
+      </ng-container>
+    </select>
+  </div>
 
-  <label for="category">Category: </label>
-  <select id="category" formControlName="category" (change)="onChangeCategory()">
-    <ng-container *ngFor="let category of categories">
-      <option value="{{ category.id }}">{{ category.name }}</option>
-    </ng-container>
-  </select>
+  <div class="search-item">
+    <label for="category">Category: </label>
+    <select id="category" formControlName="category" (change)="onChangeCategory()">
+      <ng-container *ngFor="let category of categories">
+        <option value="{{ category.id }}">{{ category.name }}</option>
+      </ng-container>
+    </select>
+  </div>
 
-  <label for="condition">追加条件: </label>
-  <select id="condition" formControlName="condition">
-    <ng-container *ngFor="let condition of additionalConditions">
-      <option value="{{ condition.id }}">{{ condition.condition }}</option>
-    </ng-container>
-  </select>
+  <div class="search-item">
+    <label for="condition">追加条件: </label>
+    <select id="condition" formControlName="condition">
+      <ng-container *ngFor="let condition of additionalConditions">
+        <option value="{{ condition.id }}">{{ condition.condition }}</option>
+      </ng-container>
+    </select>
+  </div>
 
   <button (click)="onSubmit()">検索</button>
 </form>
