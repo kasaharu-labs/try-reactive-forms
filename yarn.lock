@@ -1226,6 +1226,13 @@
     "@schematics/angular" "^11.0.5"
     typescript "~4.0.2"
 
+"@ngneat/reactive-forms@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@ngneat/reactive-forms/-/reactive-forms-1.6.0.tgz#364c84c6c36366b72e83edd206dc2aef80682362"
+  integrity sha512-pi1pfmlDZ5TKTT0MoSoxRofDtRzy2fV0FCA8m9+dRbwZKS/MgAxYL7DZw3TlXa03i6Qhpn+kjI3VT7hR0pM7Kw==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ngtools/webpack@11.1.1":
   version "11.1.1"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-11.1.1.tgz#435916df27ead534f2a78f0a32f6c8d97c2912b9"
