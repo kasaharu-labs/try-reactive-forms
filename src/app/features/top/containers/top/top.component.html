@@ -1,1 +1,12 @@
-<p>top works!</p>
+<ng-container *ngIf="users$ | async as users; else loadingContent">
+  <app-search-form
+    [users]="users"
+    [categories]="categories"
+    [additionalConditions]="todoConditions()"
+    (requestSubmit)="search($event)"
+  ></app-search-form>
+</ng-container>
+
+<ng-template #loadingContent>
+  <div>Loading ...</div>
+</ng-template>

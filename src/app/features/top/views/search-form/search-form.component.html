@@ -1,1 +1,24 @@
-<p>search-form works!</p>
+<form [formGroup]="searchForm">
+  <label for="user-id">User id: </label>
+  <select id="user-id" formControlName="userId">
+    <ng-container *ngFor="let userId of userIds">
+      <option value="{{ userId }}">{{ userId }}</option>
+    </ng-container>
+  </select>
+
+  <label for="category">Category: </label>
+  <select id="category" formControlName="category" (change)="changeCategory()">
+    <ng-container *ngFor="let category of categories">
+      <option value="{{ category.id }}">{{ category.name }}</option>
+    </ng-container>
+  </select>
+
+  <label for="condition">追加条件: </label>
+  <select id="condition" formControlName="condition">
+    <ng-container *ngFor="let condition of additionalConditions">
+      <option value="{{ condition.id }}">{{ condition.condition }}</option>
+    </ng-container>
+  </select>
+
+  <button (click)="onSubmit()">検索</button>
+</form>
