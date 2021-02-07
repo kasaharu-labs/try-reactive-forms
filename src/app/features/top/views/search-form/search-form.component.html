@@ -1,13 +1,13 @@
 <form [formGroup]="searchForm">
-  <label for="user-id">User id: </label>
-  <select id="user-id" formControlName="userId">
-    <ng-container *ngFor="let userId of userIds">
-      <option value="{{ userId }}">{{ userId }}</option>
+  <label for="user-id">User: </label>
+  <select id="user-id" formControlName="userId" (change)="onChangeUser()">
+    <ng-container *ngFor="let user of users">
+      <option value="{{ user.id }}">{{ user.id }}: {{ user.name }}</option>
     </ng-container>
   </select>
 
   <label for="category">Category: </label>
-  <select id="category" formControlName="category" (change)="changeCategory()">
+  <select id="category" formControlName="category" (change)="onChangeCategory()">
     <ng-container *ngFor="let category of categories">
       <option value="{{ category.id }}">{{ category.name }}</option>
     </ng-container>

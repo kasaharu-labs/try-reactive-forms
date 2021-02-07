@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Category } from '../../../../domain/category';
-import { Condition, SearchCondition } from '../../../../domain/condition';
-import { AlbumGateway } from '../../../../infrastructures/gateways/album.gateway';
+import { Flag, SearchCondition } from '../../../../domain/condition';
+import { FlagService } from '../../../../infrastructures/gateways/flag.service';
 import { UserGateway } from '../../../../infrastructures/gateways/user.gateway';
 
 @Component({
@@ -11,36 +11,31 @@ import { UserGateway } from '../../../../infrastructures/gateways/user.gateway';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopComponent implements OnInit {
-  constructor(private readonly _userGateway: UserGateway, private readonly _albumGateway: AlbumGateway) {}
+  constructor(private readonly _userGateway: UserGateway, private readonly _flagService: FlagService) {}
   users$ = this._userGateway.users$;
+  additionalCondition$ = this._flagService.flags$;
+
+  categories: Category[] = [
+    { id: 1, name: 'todos' },
+    { id: 2, name: 'photos' },
+  ];
 
   ngOnInit(): void {
     this._userGateway.getUsers();
+    this._flagService.buildTodoConditions();
   }
 
-  get categories(): Category[] {
-    return [
-      { id: 1, name: 'todos' },
-      { id: 2, name: 'photos' },
-    ];
+  changeUser(): void {
+    this._flagService.buildTodoConditions();
   }
 
-  todoConditions(): Condition[] {
-    return [
-      { id: 1, condition: 'completed' },
-      { id: 2, condition: 'uncompleted' },
-    ];
-  }
+  changeCategory(flag: Flag) {
+    if (flag.categoryId === 1) {
+      this._flagService.buildTodoConditions();
+      return;
+    }
 
-  async additionalConditions(categoryId: number, userId: number): Promise<Condition[]> {
-    const todoConditions: Condition[] = [
-      { id: 1, condition: 'completed' },
-      { id: 2, condition: 'uncompleted' },
-    ];
-    const albums = await this._albumGateway.getAlbums(userId).toPromise();
-    const photoConditions: Condition[] = albums.map((album, index) => ({ id: index + 3, condition: String(album.id) }));
-
-    return categoryId === 1 ? todoConditions : photoConditions;
+    this._flagService.buildPhotoConditions(flag.userId);
   }
 
   search(searchCondition: SearchCondition): void {

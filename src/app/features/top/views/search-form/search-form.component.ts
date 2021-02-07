@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { Category } from '../../../../domain/category';
-import { Condition, SearchCondition } from '../../../../domain/condition';
+import { Condition, Flag, SearchCondition } from '../../../../domain/condition';
 import { User } from '../../../../domain/user';
 
 @Component({
@@ -11,28 +11,36 @@ import { User } from '../../../../domain/user';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchFormComponent implements OnInit {
-  constructor(private readonly _fb: FormBuilder) {}
+  constructor(private readonly _ngneatFb: FormBuilder) {}
   @Input()
   users!: User[];
   @Input()
   categories!: Category[];
   @Input()
   additionalConditions!: Condition[];
+
   @Output()
   requestSubmit = new EventEmitter<SearchCondition>();
+  @Output()
+  requestChangeUser = new EventEmitter<boolean>();
+  @Output()
+  requestChangeCategory = new EventEmitter<Flag>();
 
-  searchForm = this._fb.group({ userId: '', category: '', condition: '' });
-
-  get userIds() {
-    return this.users.map((user) => user.id);
-  }
+  searchForm!: FormGroup<SearchCondition>;
 
   ngOnInit(): void {
-    this.searchForm.patchValue({ userId: this.userIds[0], category: this.categories[0].id });
+    this.searchForm = this._ngneatFb.group({ userId: this.users[0].id, category: this.categories[0].id.toString(), condition: '' });
   }
 
-  changeCategory(): void {
-    console.log('SearchFormComponent#chagenCategory - event: ', this.searchForm.value.category);
+  onChangeUser(): void {
+    this.searchForm.patchValue({ category: this.categories[0].id.toString(), condition: '' });
+    this.requestChangeUser.emit(true);
+  }
+
+  onChangeCategory(): void {
+    const categoryId = this.searchForm.value.category;
+    const userId = this.searchForm.value.userId;
+    this.requestChangeCategory.emit({ userId, categoryId: +categoryId });
   }
 
   onSubmit(): void {

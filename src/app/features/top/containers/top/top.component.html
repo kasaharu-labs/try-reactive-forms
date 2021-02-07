@@ -2,7 +2,9 @@
   <app-search-form
     [users]="users"
     [categories]="categories"
-    [additionalConditions]="todoConditions()"
+    [additionalConditions]="additionalCondition$ | async"
+    (requestChangeUser)="changeUser()"
+    (requestChangeCategory)="changeCategory($event)"
     (requestSubmit)="search($event)"
   ></app-search-form>
 </ng-container>

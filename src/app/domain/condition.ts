@@ -3,6 +3,11 @@ export interface Condition {
   condition: string;
 }
 
+export interface Flag {
+  userId: number;
+  categoryId: number;
+}
+
 export interface SearchCondition {
   userId: number;
   category: string;
