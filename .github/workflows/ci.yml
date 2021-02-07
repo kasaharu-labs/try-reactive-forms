@@ -55,20 +55,3 @@ jobs:
           yarn build --prod try-reactive-forms
         env:
           CI: true
-
-      - name: unit test try-reactive-forms
-        run: |
-          yarn test:ci try-reactive-forms
-        env:
-          CI: true
-
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v1
-        with:
-          name: code-coverage-report-for-try-reactive-forms
-          path: coverage/try-reactive-forms
-      #       - name: e2e test try-reactive-forms
-      #         run: |
-      #           yarn e2e:ci try-reactive-forms
-      #         env:
-      #           CI: true
